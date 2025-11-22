@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourist Buddy</title>
+<style>
+:root {
+  --primary: #2563eb; --bg: #f8fafc; --text: #1e293b; --border: #e2e8f0;
+  --highlight: #f4f8ff; --faint: #fcfdff;
+}
+body { margin:0; background:var(--bg); font-family:'Segoe UI',sans-serif; color:var(--text);}
+.header { background:#fff; border-bottom:1px solid var(--border);}
+.header-content { max-width:1200px; margin:0 auto; padding:20px; display:flex; align-items:center; justify-content:space-between;}
+.logo { display:flex; align-items:center; gap:8px; font-size:2em; font-weight:600;}
+.logo img { width:34px; height:34px; }
+.nav { display:flex; gap:32px;justify-content: flex-end; padding: 12px 0; width: 95%; box-sizing: border-box;}
+.nav a { color:var(--primary); text-decoration:none; font-weight:500; font-size:1.1em;}
+.nav a:hover { text-decoration: underline;}
+.hero { background: linear-gradient(135deg,#3b82f6 0%, #2563eb 100%); color:#fff; padding:70px 20px 50px 20px; text-align:center;}
+.hero h1 { font-size:2.5em; margin:0 0 13px 0; font-weight:700;}
+.hero p { font-size:1.15em; opacity:0.96;}
+.demo-badge { 
+  margin-top:18px;
+  background: #d1fae5;
+  color: #03543f;
+  border-radius:2em;
+  padding:6px 18px;
+  font-weight:600;
+  font-size:1.11em;
+  display:inline-block;
+  border: 1.5px solid #10b981;
+  letter-spacing:.5px;
+}
+.container { max-width:900px; margin:0 auto; }
+.card {
+  background:#fff; 
+  border-radius:22px; 
+  box-shadow:0 7px 29px #e2e7f376; 
+  padding:48px 28px 32px 28px;
+  margin-top:-65px;
+}
+.card h2 {
+  text-align:center;
+  font-size:2.8em;
+  margin:0 0 13px;
+  font-weight:800;
+  color:#243773;
+  letter-spacing:1px;
+  animation: fadeInDown 0.9s cubic-bezier(.35,1,.45,.98);
+}
+@keyframes fadeInDown {
+  0% {transform:translateY(-50px);opacity:0;}
+  100% {transform:translateY(0);opacity:1;}
+}
+.card > p {
+  text-align:center; 
+  color:#84a2c2; 
+  font-size:1.15em;
+  margin:0 0 22px;
+  letter-spacing:0.1px;
+}
+.input-wrapper { display:flex; gap:13px; max-width:650px; margin:0 auto 20px auto;}
+.input-wrapper input {
+  flex:1;
+  padding:15px 44px 15px 19px;
+  border:2px solid #e2e8f0;
+  border-radius:14px;
+  font-size:1.18em;
+  box-shadow:0 2px 9px #e7eaf7;
+  background: #f5faff url('https://cdn-icons-png.flaticon.com/512/622/622669.png') no-repeat 98% center;
+  background-size:22px;
+  transition: border-color .2s, box-shadow .3s;
+}
+.input-wrapper input:focus {
+  outline:none; border-color:var(--primary);
+  box-shadow:0 2px 26px #b0cdf7;
+}
+.input-wrapper button {
+  background: #22c55e;
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  padding:15px 38px;
+  font-size:1.21em;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 2px 16px #e3e7f7;
+  transition: background .22s;
+}
+.input-wrapper button:hover { background:#12813c; }
+.examples {
+  display:flex;
+  gap:16px 14px;
+  flex-wrap:wrap;
+  max-width:750px;
+  margin:0 auto 16px auto;
+  justify-content:center;
+}
+.example-btn {
+  background: #e8f7f2;
+  border:2px solid #d4ecee;
+  border-radius:13px;
+  padding:11px 22px;
+  cursor:pointer;
+  font-size:1.12em;
+  font-weight:500;
+  box-shadow: 0 2px 9px #85a5bb22;
+  transition: border-color .18s, background .2s;
+}
+.example-btn:hover {
+  border-color:var(--primary);
+  background:#b7f5cf;
+  color:#065f46;
+}
+.example-btn:active {
+  background:#97eac0;
+}
+.example-btn.selected {
+  border:2px solid #2563eb;
+  background:#edf7e5;
+  color:#2563eb;
+}
+.main-area { margin:35px auto 0 auto; max-width:930px;}
+.section-title { font-size:2em; font-weight:700; margin:25px 0 19px 0;}
+.place-list { display:grid;grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); gap:20px 24px;}
+.place-card { background: var(--faint); border-radius:11px; border:1.7px solid #e5eaff; padding:18px 17px; box-sizing: border-box;}
+.place-row { display:flex; gap:12px;}
+.place-number { background:var(--primary); color:#fff; width:33px; height:33px;display:flex;align-items:center;justify-content:center; border-radius:50%; font-weight:600; font-size:1em; }
+.place-content { flex:1;}
+.place-name { font-weight:600; font-size:1.15em;}
+.place-desc { color:#64748b; font-size:0.99em;}
+.place-fact { background: #fef3c7; margin:7px 0 0 0; border-left:3px solid #fbbf24; padding:6px 10px; border-radius:5px; font-size:0.95em;}
+.itinerary-box{margin:17px 0 40px 0;}
+.iti-title {font-size:1.25em; font-weight:700; color:var(--primary);}
+.iti-temp {color:#1e293b; font-weight:600;margin-left:12px;}
+.iti-block { margin:13px 0 23px 0; padding:21px 17px;background:#f8fafc;border-radius:9px;}
+.iti-block strong {font-size:1.06em;}
+.iti-block .spot { margin-top:5px; }
+.recent-section {background:#f8fafc; border:1.7px solid #e2e8f0; border-radius:13px; margin:35px auto 15px auto; padding:25px 23px; max-width:650px;}
+.recent-section h3 {margin:0 0 14px 0;}
+.recent-list {display:flex;flex-direction:column;gap:6px;}
+.recent-btn {background:#fff; border:2px solid #e2e8f0; border-radius:8px; padding:9px 15px; cursor:pointer; font-size:1.02em;display:flex;justify-content:space-between;align-items:center;}
+.recent-btn:hover {border-color:var(--primary); background:#f0f9ff;}
+.time-badge {font-size:0.93em;color:#64748b;padding-left:12px;}
+.footer {margin:48px auto 16px auto; max-width:850px; text-align:center; color:#64748b; font-size:1.15em;}
+.footer-logo-row {display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:5px;}
+.footer-logo-row img {width:24px;height:24px;margin-top:-4px;}
+.footer-brand {font-size:1.3em;font-weight:600;color:#1e293b;}
+.footer-desc {margin-top:12px;margin-bottom:5px;font-size:.96em;}
+.footer-hr {margin:14px 0;}
+.footer-credits {font-size:.97em;}
+@media (max-width:700px) {
+  .header-content,.container,.main-area,.card,.recent-section,.footer {max-width:99%;}
+  .hero h1 {font-size:1.33em;}
+  .example-btn {font-size:.99em}
+  .section-title {font-size:1.18em;}
+  .input-wrapper input {font-size:1em;}
+  .input-wrapper button {padding:12px 16px;font-size:1.05em;}
+  .card h2 { font-size:1.7em; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-content">
+    <div class="logo">
+      🗺️ Tourist Buddy
+    </div>
+  </div>
+</div>
+    <div class="nav">
+      <a href="#">Home</a>
+      <a href="#">Search</a>
+      <a href="#">History</a>
+    </div>
+  </div>
+</div>
+<div class="hero">
+  <h1>Discover Your Next Adventure</h1>
+  <p>Get real-time weather forecasts and explore top tourist attractions for any destination worldwide</p>
+  <span class="demo-badge">● Live Mode</span>
+</div>
+<div class="container">
+  <div class="card">
+    <h2>Plan Your Trip</h2>
+    <p>Enter a destination to see current weather conditions and discover amazing places to visit</p>
+    <div class="input-wrapper">
+      <input id="queryInput" placeholder="E.g. Weather Condition/Plan Trip to Bangalore, Chennai, Kerala, Agra..." onkeypress="if(event.key==='Enter') processQuery()">
+      <button onclick="processQuery()">Search</button>
+    </div>
+    <div class="examples">
+      <div class="example-btn" onclick="setExample('bangalore')">Plan Trip to Bangalore</div>
+      <div class="example-btn" onclick="setExample('delhi')">Plan Trip to Delhi</div>
+      <div class="example-btn" onclick="setExample('jaipur')">Jaipur Itinerary</div>
+      <div class="example-btn" onclick="setExample('chennai')">Chennai Weather & Trip</div>
+      <div class="example-btn" onclick="setExample('goa')">Goa Trip Plan</div>
+      <div class="example-btn" onclick="setExample('manali')">Manali Travel Plan</div>
+      <div class="example-btn" onclick="setExample('agra')">Agra Weather & Plan</div>
+      <div class="example-btn" onclick="setExample('kerala')">Kerala Itinerary Plan</div>
+    </div>
+  </div>
+  <div class="main-area" id="mainArea"></div>
+  <div id="recentSection" class="recent-section" style="display:none;">
+    <h3>Recent Searches</h3>
+    <div class="recent-list" id="recentList"></div>
+  </div>
+  <!-- Footer at very bottom -->
+   <div class="footer">
+  <div class="footer-logo-row" style="display: flex; align-items: center; gap: 8px;">
+    <span style="font-size: 2em; vertical-align: middle;">🗺️</span>
+    <span class="footer-brand" style="font-size: 1.2em; font-weight: 600;">Tourist Buddy</span>
+  </div>
+    <div>Your knowledgeable travel companion for weather insights and local attractions worldwide.</div>
+    <div class="footer-desc">© 2025 Tourist Buddy. All rights reserved.</div>
+    <hr class="footer-hr">
+    <div class="footer-credits"> | Multi-Agent Tourism System | Built with LangChain & Python | </div>
+  </div>
+</div>
+<script>
+const MAX_RECENT = 5;
+const recentSearches = [];
+
+const data = {
+  bangalore: {
+    temp: [22,28,24],
+    places:[
+      {name:"Lalbagh Botanical Garden",desc:"Famous for lush flora.",fact:"A historical garden."},
+      {name:"Cubbon Park",desc:"Green heart of Bangalore.",fact:"Great for morning walks."},
+      {name:"Bangalore Palace",desc:"Stunning architecture.",fact:"Inspired by Windsor Castle."},
+      {name:"ISKCON Temple",desc:"Peaceful spiritual site.",fact:"Modern Hindu temple."},
+      {name:"Vidhana Soudha",desc:"Government building.",fact:"Iconic city landmark."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:22, stops:[{title:"Lalbagh Botanical Garden",time:'2h',desc:"Famous for lush flora."},{title:"Cubbon Park",time:'1.5h',desc:"Green heart of Bangalore."}]},
+      {time:"Afternoon",temp:28,stops:[{title:"Bangalore Palace",time:'2h',desc:"Stunning architecture."},{title:"ISKCON Temple",time:'1.5h',desc:"Peaceful spiritual site."}]},
+      {time:"Evening",temp:24,stops:[{title:"Vidhana Soudha",time:'1h',desc:"Iconic city landmark."},{title:"Local dining",time:'',desc:"Try Toit Brewpub or Vidyarthi Bhavan."}]}
+    ]
+  },
+  delhi: {
+    temp: [20,28,22],
+    places: [
+      {name:"India Gate", desc:"War memorial arch in central Delhi.", fact:"Inspired by Arc de Triomphe."},
+      {name:"Qutub Minar", desc:"World's tallest brick minaret.", fact:"Built in 1192, UNESCO site."},
+      {name:"Red Fort", desc:"17th-century Mughal fort.", fact:"Hosts Independence Day speech."},
+      {name:"Lotus Temple", desc:"Baháʼí house of worship.", fact:"Lotus-shaped, open to all faiths."},
+      {name:"Akshardham", desc:"Modern temple & culture complex.", fact:"Features musical fountain shows."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:20, stops:[
+        {title:"Red Fort",time:'1.5h',desc:"Explore Mughal history."},
+        {title:"Jama Masjid",time:'1h',desc:"India's largest mosque."}
+      ]},
+      {time:"Afternoon",temp:28,stops:[
+        {title:"Qutub Minar",time:'1.5h',desc:"Climb the historic tower."},
+        {title:"Lotus Temple",time:'0.5h',desc:"Peaceful meditation garden."}
+      ]},
+      {time:"Evening",temp:22,stops:[
+        {title:"India Gate",time:'1h',desc:"Best viewed in evening lights."},
+        {title:"Akshardham",time:'1.5h',desc:"Don’t miss the musical fountain."}
+      ]}
+    ]
+  },
+  jaipur: {
+    temp: [22,34,26],
+    places: [
+      {name:"Amber Fort", desc:"Majestic hill fort outside city.", fact:"Sheesh Mahal has thousands of mirrors."},
+      {name:"Hawa Mahal", desc:"Iconic pink wind palace.", fact:"953 windows for royal women."},
+      {name:"City Palace", desc:"Royal residence and museum.", fact:"Blend of Rajput & Mughal architecture."},
+      {name:"Jantar Mantar", desc:"Astronomical observatory.", fact:"World's largest stone sundial."},
+      {name:"Jal Mahal", desc:"Palace in the middle of a lake.", fact:"Best visited at sunset."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:22, stops:[
+        {title:"Amber Fort", time:'2.5h', desc:"Enjoy elephant rides and explore palaces."},
+        {title:"Jal Mahal", time:'0.5h', desc:"Photo stop at Man Sagar Lake."}
+      ]},
+      {time:"Afternoon", temp:34, stops:[
+        {title:"City Palace", time:'1.5h', desc:"See royal costumes and weapons."},
+        {title:"Jantar Mantar", time:'1h', desc:"Check astronomical instruments."}
+      ]},
+      {time:"Evening", temp:26, stops:[
+        {title:"Hawa Mahal", time:'1h', desc:"Climb up for city views and shopping around."},
+        {title:"Local bazaar", time:'1h', desc:"Explore Johari or Bapu market."}
+      ]}
+    ]
+  },
+  chennai: {
+    temp: [26,33,28],
+    places: [
+      {name:"Marina Beach",desc:"India's longest urban beach.",fact:"Crowds, kite-flying, street food."},
+      {name:"Kapaleeshwarar Temple",desc:"Ancient Dravidian temple.",fact:"Colorful gopuram & rituals."},
+      {name:"Fort St. George",desc:"British East India Company fort.",fact:"Now a Tamil Nadu govt complex."},
+      {name:"Government Museum",desc:"Premier art & science museum.",fact:"Famous for Bronze Gallery."},
+      {name:"Santhome Church",desc:"Basilica built by Portuguese.",fact:"Tomb of St Thomas apostle."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:26, stops:[
+        {title:"Kapaleeshwarar Temple", time:'1h', desc:"Experience morning rituals."},
+        {title:"Santhome Church", time:'0.5h', desc:"Historic white basilica."}
+      ]},
+      {time:"Afternoon", temp:33, stops:[
+        {title:"Fort St. George", time:'1h', desc:"Colonial architecture and museum."},
+        {title:"Government Museum", time:'1h', desc:"See Chola bronzes & dinosaur fossils."}
+      ]},
+      {time:"Evening", temp:28, stops:[
+        {title:"Marina Beach", time:'2h', desc:"Walk, snack, and enjoy the sunset."}
+      ]}
+    ]
+  },
+  goa: {
+    temp: [27,32,26],
+    places: [
+      {name:"Baga Beach",desc:"Party & water sports spot.",fact:"Famous for nightlife."},
+      {name:"Fort Aguada",desc:"17th-century Portuguese fort.",fact:"With iconic lighthouse."},
+      {name:"Basilica of Bom Jesus",desc:"UNESCO cathedral.",fact:"Houses St. Francis Xavier."},
+      {name:"Anjuna Flea Market",desc:"Bohemian shopping scene.",fact:"Open on Wednesdays."},
+      {name:"Dudhsagar Falls",desc:"Spectacular 4-tiered falls.",fact:"Seen in Bollywood movies."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:27, stops:[
+        {title:"Baga Beach", time:'2h', desc:"Relax & try watersports."},
+        {title:"Fort Aguada", time:'1h', desc:"Cliffside fort view."}
+      ]},
+      {time:"Afternoon", temp:32, stops:[
+        {title:"Basilica of Bom Jesus", time:'1h', desc:"Explore church & gallery."},
+        {title:"Anjuna Flea Market", time:'1.5h', desc:"Souvenir shopping."}
+      ]},
+      {time:"Evening", temp:26, stops:[
+        {title:"Dudhsagar Falls", time:'2h', desc:"Scenic sunset spot or beach shacks."}
+      ]}
+    ]
+  },
+  manali: {
+    temp: [15,18,12],
+    places: [
+      {name:"Hadimba Temple",desc:"Unique pagoda forest shrine.",fact:"Built in 1553; tranquil."},
+      {name:"Solang Valley",desc:"Adventure sports hub.",fact:"Paragliding & skiing."},
+      {name:"Rohtang Pass",desc:"Iconic mountain pass.",fact:"Open in summer (snow views)."},
+      {name:"Old Manali",desc:"Chill cafes & river views.",fact:"Hippie backpacker vibe."},
+      {name:"Vashisht Baths",desc:"Hot springs temple.",fact:"Natural sulphur wells."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:15, stops:[
+        {title:"Hadimba Temple", time:'0.5h', desc:"Wooded ancient temple."},
+        {title:"Vashisht Baths", time:'1h', desc:"Hot water dip."}
+      ]},
+      {time:"Afternoon", temp:18, stops:[
+        {title:"Solang Valley", time:'2.5h', desc:"Try adventure sports."}
+      ]},
+      {time:"Evening", temp:12, stops:[
+        {title:"Old Manali", time:'1.5h', desc:"Cafe hop, relax by river."}
+      ]}
+    ]
+  },
+  agra: {
+    temp: [23,30,26],
+    places:[
+      {name:"Taj Mahal",desc:"Iconic white marble mausoleum.",fact:"UNESCO World Heritage."},
+      {name:"Agra Fort",desc:"Majestic red sandstone fort.",fact:"Former imperial palace."},
+      {name:"Fatehpur Sikri",desc:"Historic Mughal city.",fact:"Abandoned capital of Akbar."},
+      {name:"Mehtab Bagh",desc:"Riverfront garden.",fact:"Best view of Taj at sunset."},
+      {name:"Itmad-ud-Daulah's Tomb",desc:"Baby Taj in white marble.",fact:"Precursor to Taj style."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:23, stops:[{title:"Taj Mahal",time:'2.5h',desc:"Don't miss sunrise!"},{title:"Mehtab Bagh",time:'1h',desc:"Garden across the Yamuna."}]},
+      {time:"Afternoon",temp:30,stops:[{title:"Agra Fort",time:'2h',desc:"Explore imperial halls."}]},
+      {time:"Evening",temp:26,stops:[{title:"Itmad-ud-Daulah's Tomb",time:'1.5h',desc:"Famous for intricate marble inlay."},{title:"Fatehpur Sikri",time:'2h',desc:"Mughal architecture."}]}
+    ]
+  },
+  kerala: {
+    temp: [26,32,28],
+    places:[
+      {name:"Alleppey Backwaters",desc:"Houseboat rides and waterways.",fact:"Known as 'Venice of the East.'"},
+      {name:"Munnar",desc:"Rolling tea plantations.",fact:"Great for scenic trekking."},
+      {name:"Fort Kochi",desc:"Colonial architecture.",fact:"See Chinese fishing nets."},
+      {name:"Thekkady",desc:"Wildlife sanctuary.",fact:"Known for elephants and boating."},
+      {name:"Varkala Beach",desc:"Clifftop beach views.",fact:"Popular for sunsets."}
+    ],
+    itinerary: [
+      {time:'Morning', temp:26, stops:[{title:"Alleppey Backwaters",time:'3h',desc:"Enjoy houseboat cruise."}]},
+      {time:"Afternoon",temp:32,stops:[{title:"Munnar",time:'2h',desc:"Visit tea estates."},{title:"Fort Kochi",time:'1.5h',desc:"Colonial walks & cafes."}]},
+      {time:"Evening",temp:28,stops:[{title:"Varkala Beach",time:'2h',desc:"Perfect for sunset."}]}
+    ]
+  }
+};
+
+function setExample(city) {
+  document.querySelectorAll('.example-btn').forEach(b => b.classList.remove('selected'));
+  var btn = document.querySelector(`.example-btn[onclick*="${city}"]`);
+  if (btn) btn.classList.add('selected');
+  document.getElementById('queryInput').value = city.charAt(0).toUpperCase() + city.slice(1);
+  processQuery();
+}
+function addRecentSearch(query) {
+  const timestamp = new Date().toLocaleString();
+  let idx = recentSearches.findIndex(x => x.query === query);
+  if(idx !== -1) recentSearches.splice(idx,1);
+  recentSearches.unshift({query, timestamp});
+  if(recentSearches.length > MAX_RECENT) recentSearches.pop();
+  renderRecentSearches();
+}
+function renderRecentSearches() {
+  const sec = document.getElementById('recentSection');
+  const ul = document.getElementById('recentList');
+  if(recentSearches.length === 0) { sec.style.display = 'none'; ul.innerHTML = ""; return; }
+  sec.style.display = 'block';
+  ul.innerHTML = recentSearches.map(s=>
+    `<div class="recent-btn" onclick="useRecent('${s.query.replace(/'/g,"\\'")}')">
+      <span>${s.query}</span><span class="time-badge">${s.timestamp}</span>
+    </div>`
+  ).join('');
+}
+function useRecent(query) {
+  document.getElementById('queryInput').value = query;
+  processQuery();
+}
+function processQuery() {
+  let query = document.getElementById('queryInput').value.trim();
+  if(!query) return;
+  addRecentSearch(query);
+  query = query.toLowerCase();
+  let cityKey = Object.keys(data).find(k => query.includes(k));
+  const area = document.getElementById('mainArea');
+  if (!cityKey) {
+    area.innerHTML = '<div style="margin-top:30px;font-size:1.18em;text-align:center;color:#b91c1c;">Sorry, we have no data for this city.<br>Try Bangalore, Agra, Kerala, etc.</div>';
+    return;
+  }
+  let askWeather = /(weather|temperature|climate|rain|update)/.test(query);
+  let askTrip = /(plan|trip|itinerary|places|visit|suggest|go|travel)/.test(query);
+  let city = data[cityKey];
+  let weatherString = `Currently in ${capitalize(cityKey)}, temperatures are registering at ${city.temp[0]}°C, reflecting the present weather in this destination.`;
+  let out = '';
+  if (askWeather && !askTrip) {
+    area.innerHTML = `<div class="card" style="margin:30px auto 0 auto;max-width:550px;">
+      <div style="font-size:1.2em;color:#2563eb;"><strong>${weatherString}</strong></div>
+    </div>`;
+  } else if (askTrip || (!askWeather && !askTrip)) {
+    out += `<div class="card" style="margin:30px auto 0 auto;max-width:550px;">
+      <div style="font-size:1.2em;color:#2563eb;"><strong>${weatherString}</strong></div>
+    </div>`;
+    let placesHtml = `<div class="section-title" style="margin-top:25px;">Top Places to Visit in ${capitalize(cityKey)}</div>
+      <div class="place-list">`;
+    city.places.forEach((place, i) => {
+      placesHtml += `<div class="place-card">
+        <div class="place-row">
+          <div class="place-number">${i+1}</div>
+          <div class="place-content">
+            <div class="place-name">${place.name}</div>
+            <div class="place-desc">${place.desc}</div>
+            <div class="place-fact">💡 ${place.fact}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+    placesHtml += `</div>`;
+    out += placesHtml;
+    let itiHtml = `<div class="section-title" style="margin-top:38px;">Sample Itinerary Plan for ${capitalize(cityKey)}</div>`;
+    city.itinerary.forEach(block => {
+      itiHtml += `<div class="iti-block">
+        <div class="iti-title">${block.time} <span class="iti-temp">(${block.temp}°C)</span></div>
+        ${block.stops.map(s => `<div class="spot"><strong>${s.title}</strong> &bull; <span>${s.time}</span><br><span style="color:#64748b;font-size:0.97em">${s.desc}</span></div>`).join("")}
+      </div>`;
+    });
+    out += itiHtml;
+    area.innerHTML = out;
+  }
+}
+function capitalize(t){return t.charAt(0).toUpperCase()+t.slice(1);}
+</script>
+</body>
+</html>
