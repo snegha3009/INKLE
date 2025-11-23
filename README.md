@@ -17,27 +17,33 @@ Deployed via [Netlify](https://www.netlify.com/).
 
 ## Project Structure/ Core Project Files
 
+1. Understand Your Current Structure (as shown)
+text
 Inkle/
-├── main.py # Main Python entry point
-├── app.py # Application setup 
-├── requirements.txt # Python dependencies
-├── .env.example # Configuration template
-├── dashboard_connected.html # Main dashboard frontend (rename to index.html for deployment)
-├── README.md # Project documentation
-├── SETUP_GUIDE.md # quick setup
+├── main.py
+├── app.py
+├── requirements.txt
+├── .env.example
+├── dashboard_connected.html
+├── README.md
+├── SETUP_GUIDE.md
 │
 └── src/
-├── init.py
-├── services/
-│ ├── init.py
-│ ├── geocoding.py # Nominatim API service
-│ ├── weather.py # Open-Meteo API service
-│ └── tourism.py # Overpass API service
-│
-└── agents/
-├── init.py
-├── tools.py # LangChain tool wrappers
-└── orchestrator.py # Parent agent
+    ├── __init__.py
+    ├── services/
+    │   ├── __init__.py
+    │   ├── geocoding.py
+    │   ├── weather.py
+    │   └── tourism.py
+    │
+    └── agents/
+        ├── __init__.py
+        ├── tools.py
+        └── orchestrator.py
+        
+2. Common Modifications
+   Rename files (e.g. for Netlify deployment):
+Rename dashboard_connected.html to index.html.
 
 ---
 
