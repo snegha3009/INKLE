@@ -1,11 +1,11 @@
 ╔══════════════════════════════════════════════════════════════════╗
-║  🚀 MULTI-AGENT TOURISM SYSTEM - READY TO RUN!                  ║
+║   MULTI-AGENT TOURISM SYSTEM - READY TO RUN!                  ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 YOU'VE SUCCESSFULLY UNZIPPED THE PROJECT!
 
 ═══════════════════════════════════════════════════════════════════
-📋 WHAT YOU HAVE
+ WHAT YOU HAVE
 ═══════════════════════════════════════════════════════════════════
 
 ✓ Complete multi-agent system with LangChain
@@ -16,7 +16,7 @@ YOU'VE SUCCESSFULLY UNZIPPED THE PROJECT!
 ✓ Quick start scripts
 
 ═══════════════════════════════════════════════════════════════════
-🚀 HOW TO RUN (Choose One Option)
+ HOW TO RUN (Choose One Option)
 ═══════════════════════════════════════════════════════════════════
 
 ┌───────────────────────────────────────────────────────────────┐
@@ -94,7 +94,7 @@ OR
 3. Open browser to http://localhost:5000
 
 ═══════════════════════════════════════════════════════════════════
-📚 HELPFUL FILES TO READ
+ HELPFUL FILES TO READ
 ═══════════════════════════════════════════════════════════════════
 
 Start here:
@@ -108,7 +108,7 @@ For specific help:
   - FILE_MANIFEST.txt      ← All files explained
 
 ═══════════════════════════════════════════════════════════════════
-🧪 TEST THE SYSTEM
+ TEST THE SYSTEM
 ═══════════════════════════════════════════════════════════════════
 
 After setup, test with these commands:
@@ -124,7 +124,7 @@ After setup, test with these commands:
    # Open: http://localhost:5000
 
 ═══════════════════════════════════════════════════════════════════
-💰 COST
+ COST
 ═══════════════════════════════════════════════════════════════════
 
   APIs:
@@ -138,7 +138,7 @@ After setup, test with these commands:
   Total: Less than ₹10 (less than a cup of coffee!)
 
 ═══════════════════════════════════════════════════════════════════
-🎯 ASSIGNMENT REQUIREMENTS
+ ASSIGNMENT REQUIREMENTS
 ═══════════════════════════════════════════════════════════════════
 
 ✓ Multi-agent system (parent + 2 child agents)
@@ -153,7 +153,7 @@ After setup, test with these commands:
 ALL REQUIREMENTS MET! ✓
 
 ═══════════════════════════════════════════════════════════════════
-🆘 TROUBLESHOOTING
+ TROUBLESHOOTING
 ═══════════════════════════════════════════════════════════════════
 
 "Module not found" error:
@@ -175,7 +175,7 @@ APIs not responding:
   → Wait 1-2 seconds and try again
 
 ═══════════════════════════════════════════════════════════════════
-✨ YOU'RE READY!
+ YOU'RE READY!
 ═══════════════════════════════════════════════════════════════════
 
 This is a complete, production-ready implementation that:
